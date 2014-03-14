@@ -1,0 +1,100 @@
+% ^^A -*- japanese-latex -*-
+% \CheckSum{80}
+% \iffalse
+%
+%   sumichama.dtx
+%   すみちゃまの文字一覧表
+%
+%<sumichama>\NeedsTeXFormat{pLaTeX2e}
+%<sumichama>\ProvidesFile{sumichama.sty}
+%<*driver>
+\documentclass{jsarticle}
+\usepackage{doc}
+\DisableCrossrefs
+\setcounter{StandardModuleDepth}{1}
+\GetFileInfo{sumichama.sty}
+\begin{document}
+  \DocInput{sumichama.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \title{すみちゃまの文字一覧表}
+% \author{紗衣(@faogr)}
+% \date{2014/3/13}
+% \maketitle
+% \StopEventually{}
+% \MakeShortVerb{\|}
+%
+% 使い方は|sample.tex|を参照のこと．
+% 
+% tabularの中で|\loop|のようなマクロを正しく展開させる方法が分からない．
+%    \begin{macrocode}
+%<*sumichama>
+\def\sumifive#1{#1#1#1#1#1}
+\def\sumiiterate#1{\sumifive{\sumifive{#1}}#1}
+%    \end{macrocode}
+%
+%  コラムの数，行数，文字の幅，表の幅，空欄の幅．
+%  空欄の幅は割とてきとー．
+%    \begin{macrocode}
+\newcount\sumicolnum
+\newcount\sumicount
+\newdimen\sumisymbolwidth \sumisymbolwidth=1.7em
+\newdimen\sumitblwidth \sumitblwidth=.9\textwidth
+\newdimen\sumiwidth
+\def\sumiwidthcal{%
+\sumiwidth=\sumitblwidth
+\advance\sumiwidth\doublerulesep
+\divide\sumiwidth by \sumicolnum
+\advance\sumiwidth -\sumisymbolwidth
+\advance\sumiwidth -\sumisymbolwidth
+\advance\sumiwidth-\doublerulesep
+}
+%    \end{macrocode}
+%
+%  本文中でアルファベットを出すための命令．
+%
+%    \begin{macrocode}
+\def\sumialphu{\@Alph\sumicount}
+\def\sumialphl{\@alph\sumicount}
+%    \end{macrocode}
+%
+%  表の本体．
+%
+%    \begin{macrocode}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.5}
+\def\sumialphtbl#1{%
+\sumicolnum1\@tfor\hoge:=#1\do{\if&\hoge\advance\sumicolnum1\fi}%
+\sumiwidthcal
+\global\sumicount1\relax
+\begin{tabular}{*{\sumicolnum}{|>{\hfil}p{\sumisymbolwidth}|@{\hskip\sumiwidth}|}}\hline
+\sumiiterate{#1\global\advance\sumicount1\\\hline}
+\end{tabular}}
+%    \end{macrocode}
+%
+% 以上．
+%
+%    \begin{macrocode}
+%</sumichama>
+\endinput
+%    \end{macrocode}
+%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+% \Finale

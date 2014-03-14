@@ -1,0 +1,20 @@
+\documentclass{jsarticle}
+\usepackage{amssymb,mathrsfs}
+\usepackage{sumichama}
+\begin{document}
+% アルファベット．必ずしも3コラムである必要はない．
+%\sumialphl \sumialphu がそれぞれ小文字，大文字に対応．
+\centering
+\sumialphtbl{\sumialphl&\sumialphu&$\mathcal\sumialphu$}
+
+\sumialphtbl{$\mathfrak\sumialphl$&$\mathfrak\sumialphu$&$\mathbb\sumialphu$}
+
+% すみちゃまのギリシャ文字
+\def\sumigreeka{$\ifcase\sumicount\or\alpha\or\beta\or\gamma\or\delta\or\varepsilon\or\epsilon\or\iota\or\phi\or\varphi\or\psi\or\theta\or\lambda\fi$}
+\def\sumigreekb{$\ifcase\sumicount\or\rho\or\sigma\or\pi\or\xi\or\eta\or\zeta\or\omega\or\tau\or\mu\or\nu\or\kappa\or\upsilon\fi$}
+\def\sumigreekc{$\ifcase\sumicount\or\chi\or\Gamma\or\Delta\or\Phi\or\Psi\or\Theta\or\Lambda\or\Sigma\or\Pi\or\Xi\or\Omega\or\Upsilon\fi$}
+% 行数を無理やり上書きする．汚い．
+\def\sumiiterate#1{\sumifive{#1#1}#1#1}
+\sumialphtbl{\sumigreeka&\sumigreekb&\sumigreekc}
+
+\end{document}
